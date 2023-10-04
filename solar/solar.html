@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Solar System</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="icon" href="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/sun.png" type="image/png">
+    </head>
+
+      <audio autoplay loop>
+        <source src="assets/background-solar.mp3" type="audio/mpeg">
+      </audio>
+
+    <body onscroll="handleScroll(event)">
+
+        <div id="preloader"></div>
+      
+      <div id="video-container">
+        <video autoplay loop muted id="video-background" disablePictureInPicture>
+            <source src="assets/background-solar.mp4" type="video/mp4">
+        </video>
+      </div>
+    
+        <img class ="body" id="sun" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/sun.png">
+        
+        <div class ="body" id="mercury-orbit">
+            <img class ="body" id="mercury" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/mercury.png">
+        </div>
+        
+        <div class ="body" id="venus-orbit">
+            <img class ="body" id="venus" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/venus.png">
+        </div>
+        
+        <div class ="body" id="earth-orbit">        
+            <img class ="body" id="earth" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/earth.png">
+        
+            <div class ="body" id="moon-orbit">
+                <img class ="body" id="moon" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/moon.png">
+            </div>
+        </div>
+        
+         <div class ="body" id="mars-orbit">
+            <img class ="body" id="mars" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/mars.png">
+        </div>
+        
+        <div class ="body" id="jupiter-orbit">
+            <img class ="body" id="jupiter" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/jupiter.png">
+        </div>
+        
+        <div class ="body" id="saturn-orbit">
+            <img class ="body" id="saturn" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/saturn.png">
+        </div>
+        
+        <div class ="body" id="uranus-orbit">
+            <img class ="body" id="uranus" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/uranus.png">
+        </div>
+        
+        <div class ="body" id="neptune-orbit">
+            <img class ="body" id="neptune" src="https://raw.githubusercontent.com/Enderkries2011/Solar-System/main/images/neptune.gif">
+        </div>
+    </body>
+  <script>
+    const video = document.getElementById('video-background');
+
+    video.addEventListener('enterpictureinpicture', () => {
+        video.pause(); // Pause the video when entering picture-in-picture mode
+    });
+
+    video.addEventListener('leavepictureinpicture', () => {
+        video.play(); // Resume playing when leaving picture-in-picture mode
+    });
+    
+    function handleScroll(event) {
+    event.preventDefault(); // Prevent default scroll behavior
+}
+</script>
+  <script>
+
+    var loader = document.getElementById("preloader");
+
+    window.addEventListener("load", function(){
+        loader.style.display = "none";
+    })
+
+  </script>
+</html>
