@@ -7,7 +7,7 @@ var endIndex = 0;
 var sourceCode = "";
 var sourceElement;
 var sourceContainer;
-var fileName = "code.txt";
+var fileName = "unblocked/hacker/code.txt";
 var cursorChar = "|";
 
 /**
