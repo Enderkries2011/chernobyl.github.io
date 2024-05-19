@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Proxy</title>
+  <style>
+    #content {
+      width: 100%;
+      height: 90%;
+    }
+    #url-bar {
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      padding: 5px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Web Proxy</h1>
+  <input type="text" id="url" placeholder="Enter URL">
+  <button onclick="loadPage()">Load Page</button>
+  <button id="fullscreen-button" onclick="toggleFullScreen()">Full Screen</button>
+  <iframe id="content" sandbox="allow-scripts allow-same-origin"></iframe>
+  <div id="url-bar">
+    <input type="text" id="new-url" placeholder="Change URL">
+    <button onclick="changeURL()">Change</button>
+    <button onclick="exitFullScreen()">Exit Full Screen</button>
+  </div>
+
+  <script>
+    const iframe = document.getElementById('content');
+    const urlBar = document.getElementById('url-bar');
+    
+    function loadPage() {
+      const url = document.getElementById('url').value;
+      iframe.src = 'https://cors-anywhere.herokuapp.com/' + url;
+    }
+
+    function toggleFullScreen() {
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if (iframe.mozRequestFullScreen) {
+        iframe.mozRequestFullScreen();
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+      }
+    }
+
+    function changeURL() {
+      const newUrl = document.getElementById('new-url').value;
+      iframe.src = 'https://cors-anywhere.herokuapp.com/' + newUrl;
+      urlBar.style.display = 'none';
+    }
+
+    function exitFullScreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+
+    // Show the URL bar when the mouse moves to the top of the screen.
+    window.addEventListener('mousemove', function(event) {
+      if (event.clientY < 10) {
+        urlBar.style.display = 'block';
+      } else {
+        urlBar.style.display = 'none';
+      }
+    });
+
+    // Prevent links in the iframe from navigating away from the proxy page.
+    iframe.contentWindow.document.addEventListener('click', function(event) {
+      if (event.target.tagName === 'A') {
+        event.preventDefault();
+        const newUrl = event.target.href;
+        iframe.src = 'https://cors-anywhere.herokuapp.com/' + newUrl;
+      }
+    });
+  </script>
+</body>
+</html>

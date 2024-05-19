@@ -1,0 +1,36 @@
+<html>
+  <head>
+  <title>Fake Updater</title>
+    <style>
+      body {
+            background: url("https://raw.githubusercontent.com/Enderkries2011/MCplus/main/home.jpg");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+      
+      button {
+            margin: 5px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+  </head>
+  <body>
+    <button onclick="window.location.href = '/fake/mac'">MacOS</button>
+    <button onclick="window.location.href = '/fake/windows'">Windows</button>
+    <button onclick="window.location.href = '/fake/chrome'">ChromeBook</button>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Donation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+            background: url("https://raw.githubusercontent.com/Enderkries2011/MCplus/main/home.jpg");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+  </head>
+  <body>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAkEbNprHVdMK4JZvUX2uhPcgiV6Rp943dQ53DtY8Tar29iBOLwcx7Q9ur-xJkC-AB1tJnYf9_RrWSvMk&components=hosted-buttons&disable-funding=venmo&currency=EUR"></script>
+    <div id="paypal-container-YZADWJ86TP6ZG"></div>
+    <script>
+      paypal.HostedButtons({
+        hostedButtonId: "YZADWJ86TP6ZG",
+      }).render("#paypal-container-YZADWJ86TP6ZG")
+    </script>
+    <a href="https://www.paypal.com/donate/?hosted_button_id=TWJD6YZSV6BLJ"><img src="Donation-qrcode.png" alt="QR-Donation" style="width:350px;height:350px;"></a>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Webhook Message Sender</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Discord Webhook Message Sender</h1>
+    <form id="webhook-form">
+        <label for="webhook-url">Webhook URL:</label>
+        <input type="text" id="webhook-url" name="webhook-url" required><br><br>
+        
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required><br><br>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" value="1" min="1"><br><br>
+
+        <input type="submit" value="Send Message">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("#webhook-form").submit(function(event) {
+                event.preventDefault();
+                
+                var webhookUrl = $("#webhook-url").val();
+                var message = $("#message").val();
+                var amount = $("#amount").val();
+
+                for (var i = 0; i < amount; i++) {
+                    setTimeout(function() {
+                        $.ajax({
+                            url: webhookUrl,
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({ "content": message }),
+                            success: function(response) {
+                                console.log("Message sent successfully!");
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Failed to send message. Status code: " + xhr.status);
+                            }
+                        });
+                    }, 500 * i); // Delay increases with each iteration
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fukushima</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://raw.githubusercontent.com/Enderkries2011/private-stuff/main/fukushima.jpg" type="image/jpeg">
+    <style>
+        body {
+            background-image: url('https://raw.githubusercontent.com/Enderkries2011/private-stuff/main/fukushima.jpg');
+            background-size: cover; /* Adjust as needed to control the image size */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+        }
+      
+        /* Style for the paragraphs containing links and buttons */
+        p {
+            margin: 10px 0;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info-2 {
+            margin-bottom: 40px;
+        }
+
+        /* Style for the buttons */
+        button {
+            margin-left: 10px;
+        }
+
+        /* Style for the download links with vertical spacing */
+        .download-link {
+            display: block;
+            margin-bottom: 20px; /* Adjust the value to control the spacing */
+        }
+    </style>
+    <script>
+        function copyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert("Copied command to clipboard");
+        }
+    </script>
+</head>
+<body>
+    <h1>Info</h1>
+    <p>What caused the Fukushima accident?</p>
+    <p class="info-2"> Following a major earthquake, a 15-metre tsunami disabled the power supply and cooling of three Fukushima Daiichi reactors, causing a nuclear accident beginning on 11 March 2011. </p>
+
+    <p class="info"> Site not done yet </p>
+  
+    <h1>Available Videos:</h1>
+    <p>
+        Fukushima (Original/Eng subs)
+         <button onclick="window.location.href = 'https://vidsrc.to/embed/movie/tt9318772'">Watch</button>
+    </p>
+  
+    <h1>Downloads:</h1>
+    <p>Downloads Not Avalible Sorry :(</p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fnaf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://m.media-amazon.com/images/M/MV5BNmNkNDI4MGMtNzgxOS00NGE2LWIxNmQtNTRlZDUxNDVjZTMxXkEyXkFqcGdeQXZ3ZXNsZXk@._V1_.jpg" type="image/jpeg">
+    <style>
+        body {
+            background-image: url('https://m.media-amazon.com/images/M/MV5BNmNkNDI4MGMtNzgxOS00NGE2LWIxNmQtNTRlZDUxNDVjZTMxXkEyXkFqcGdeQXZ3ZXNsZXk@._V1_.jpg');
+            background-size: cover; /* Adjust as needed to control the image size */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+        }
+      
+        /* Style for the paragraphs containing links and buttons */
+        p {
+            margin: 10px 0;
+        }
+
+        /* Style for the buttons */
+        button {
+            margin-left: 10px;
+        }
+
+        /* Style for the download links with vertical spacing */
+        .download-link {
+            display: block;
+            margin-bottom: 20px; /* Adjust the value to control the spacing */
+        }
+    </style>
+    <script>
+        function copyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert("Copied command to clipboard");
+        }
+    </script>
+</head>
+<body>
+    <h1>Available Videos:</h1>
+    <p>
+        FNAF (Five Nights at Freddy's)
+        <button onclick="window.location.href = 'https://ia600504.us.archive.org/1/items/five-nights-at-freddys_202311/fnaf.mp4'">Watch</button>
+        <button onclick="copyTextToClipboard('vlc https://ia600504.us.archive.org/1/items/five-nights-at-freddys_202311/fnaf.mp4')">Copy</button>
+    </p>
+  
+    <h1>Downloads:</h1>
+    <a class="download-link" href="https://www.dropbox.com/scl/fi/9xpb2x9jwwdofko969fp2/fnaf.mp4?rlkey=746xy8varfa2m7ws9a3zv8730&dl=1" download>FNAF (Five Nights at Freddy's)</a>
+</body>
+</html>
