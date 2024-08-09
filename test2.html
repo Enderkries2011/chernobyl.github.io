@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ender's Messaging App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+	    background-image: url("https://wallpapercave.com/wp/wp7786982.jpg");
+	    background-position: center;
+  	    background-repeat: no-repeat;
+  	  
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        #auth-container, #chat-container, #error-container {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #email-input, #password-input, #message-input, #color-input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        #set-auth-btn, #send-btn {
+            width: 50px;
+            padding: 10px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #error-container {
+            display: none;
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #d9534f;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #chat-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Error container -->
+    <div id="error-container">Wrong Email or Password</div>
+
+    <!-- Authentication container -->
+    <div id="auth-container">
+        <input type="email" id="email-input" placeholder="Enter your email...">
+        <input type="password" id="password-input" placeholder="Enter your password...">
+        <button id="set-auth-btn">Login</button>
+    </div>
+
+    <!-- Chat container -->
+    <div id="chat-container">
+        <input type="color" id="color-input" title="Choose message color">
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+    </div>
+
+    <script>
+        const serverUrl = 'http://192.168.1.121:8080'; // Your server's address
+
+        const authContainer = document.getElementById('auth-container');
+        const chatContainer = document.getElementById('chat-container');
+        const messagesDiv = document.getElementById('messages');
+        const emailInput = document.getElementById('email-input');
+        const passwordInput = document.getElementById('password-input');
+        const setAuthBtn = document.getElementById('set-auth-btn');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const colorInput = document.getElementById('color-input');
+        const errorContainer = document.getElementById('error-container');
+
+        let username = '';
+        let messageColor = '#000000'; // Default color
+
+        // Function to load messages from the server and display them
+        async function loadMessages() {
+            try {
+                const response = await fetch(`${serverUrl}/get_messages`);
+                const messages = await response.json();
+                messagesDiv.innerHTML = ''; // Clear previous messages
+                messages.forEach(msg => {
+                    const messageElement = document.createElement('div');
+                    messageElement.style.color = msg.color || '#000000'; // Use message color or default
+                    messageElement.textContent = `${msg.username}: ${msg.message}`;
+                    messagesDiv.appendChild(messageElement);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the latest message
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        // Function to send a message to the server
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message && username) {
+                try {
+                    const data = {
+                        username: username,
+                        message: message,
+                        color: messageColor
+                    };
+                    const response = await fetch(`${serverUrl}/store_message`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    if (response.ok) {
+                        messageInput.value = ''; // Clear the input field
+                        loadMessages(); // Reload messages after sending
+                    } else {
+                        console.error('Failed to send message.');
+                    }
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                }
+            }
+        }
+
+        // Function to authenticate the user based on email and password
+        async function authenticateUser() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            if (email && password) {
+                try {
+                    const response = await fetch(`${serverUrl}/authenticate`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email, password: password })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        username = data.username;
+                        if (username) {
+                            authContainer.style.display = 'none';
+                            errorContainer.style.display = 'none';
+                            chatContainer.style.display = 'block';
+                            loadMessages(); // Load messages after authentication
+                            setInterval(loadMessages, 5000); // Refresh messages every 5 seconds
+                        } else {
+                            showError();
+                        }
+                    } else {
+                        showError();
+                    }
+                } catch (error) {
+                    console.error('Error authenticating user:', error);
+                    showError();
+                }
+            } else {
+                alert('Please enter both email and password.');
+            }
+        }
+
+        // Function to show error message
+        function showError() {
+            authContainer.style.display = 'none';
+            errorContainer.style.display = 'block';
+        }
+
+        // Event listeners for authentication and sending messages
+        setAuthBtn.addEventListener('click', authenticateUser);
+        emailInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                authenticateUser();
+            }
+        });
+        passwordInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                authenticateUser();
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        colorInput.addEventListener('input', () => {
+            messageColor = colorInput.value;
+        });
+    </script>
+</body>
+</html>
